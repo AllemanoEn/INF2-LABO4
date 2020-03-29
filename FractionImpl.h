@@ -2,6 +2,8 @@
 #define INF2_LABO4_FRACTIONIMPL_H
 
 #include "cmath"
+#include "Fraction.h"
+
 
 using namespace std;
 
@@ -116,6 +118,5 @@ T Fraction<T>::pgcd(T x, T y) const {
 
     return y;
 }
-
 
 #endif //INF2_LABO4_FRACTIONIMPL_H

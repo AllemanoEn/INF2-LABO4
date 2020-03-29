@@ -6,6 +6,16 @@
 template<typename T>
 class Fraction {
 
+    /**
+     * Permet d'afficher correctement une fraction
+     * @param lhs flux ostream
+     * @param rhs Fraction en question
+     * @return le flux correctement affiché
+     */
+    friend std::ostream& operator<<(std::ostream& lhs, const Fraction& rhs){
+        lhs << rhs.numerateur << '/' << rhs.denominateur;
+    }
+
 public:
     /**
      * Construit une fracti
@@ -72,9 +82,6 @@ public:
      * @param autreFraction
      */
     void operator*=(const Fraction<T> &autreFraction);
-
-    //à transformé en operateur <<
-    std::string affichage();
 
 
 private:

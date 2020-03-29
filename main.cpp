@@ -4,9 +4,9 @@
 int main() {
     Fraction <int>f(8,32);
     Fraction <int>f2(2,3);
-    cout << "premier test: " << f.affichage()<< endl;
+    cout << "premier test: " << f << endl;
     Fraction <int>fSimplifie = f.simplifier();
-    cout << "simplifie: " << fSimplifie.affichage()<< endl;
+    cout << "simplifie: " << fSimplifie << endl;
     cout << "identite 1: " << f.identite(f) << endl;
     cout << "identite 2: " << f.identite(fSimplifie) << endl;
     cout << "identite 3: " << f.identite(f2) << endl;
@@ -16,19 +16,19 @@ int main() {
     Fraction<int> fAdd1 = f+f;
     Fraction<int> fAdd2 = f+fSimplifie;
     Fraction<int> fAdd3 = f2+f;
-    cout << "addition 1: " << fAdd1.affichage() << endl;
-    cout << "addition 2: " << fAdd2.affichage() << endl;
-    cout << "addition 3: " << fAdd3.affichage() << endl;
+    cout << "addition 1: " << fAdd1 << endl;
+    cout << "addition 2: " << fAdd2 << endl;
+    cout << "addition 3: " << fAdd3 << endl;
     Fraction<int> fMul1 = f*f;
     Fraction<int> fMul2 = f*fSimplifie;
     Fraction<int> fMul3 = f2*f;
-    cout << "multiplication 1: " << fMul1.affichage() << endl;
-    cout << "multiplication 2: " << fMul2.affichage() << endl;
-    cout << "multiplication 3: " << fMul3.affichage() << endl;
+    cout << "multiplication 1: " << fMul1 << endl;
+    cout << "multiplication 2: " << fMul2 << endl;
+    cout << "multiplication 3: " << fMul3 << endl;
     f += f2;
-    cout << f.affichage() << endl;
+    cout << f << endl;
     f *= f2;
-    cout << f.affichage() << endl;
+    cout << f << endl;
 
     return 0;
 }
