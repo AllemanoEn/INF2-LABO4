@@ -17,7 +17,7 @@ class Fraction {
 
 public:
     /**
-     * Construit une fracti
+     * Construit une fraction
      * 3on grâce au numerateur et au dénominateur
      * @param numerateur
      * @param denominateur
@@ -105,7 +105,7 @@ private:
      * @param y le deuxième nombre
      * @return le PGCD de X et Y
      * @details La fonction utilise l'algorithme d'Euclide vu dans le cours ASD1. La version itérative de l'algorithme
-     *          est utilisée car elle est plus efficace sur de grands nombres.
+     *          est utilisée car elle est plus efficace sur les grands nombres.
      */
     T pgcd(T x, T y) const;
 

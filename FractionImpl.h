@@ -5,14 +5,13 @@
 #include "Fraction.h"
 #include "limits"
 
-
 using namespace std;
 
 template<typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) {
     if(denominateur == 0)
         throw invalid_argument("le denominateur ne peut etre 0");
-    unsigned negatif = 0;
+
     if(denominateur < 0){
         if(denominateur == numeric_limits<T>::min())
             throw overflow_error("Le denominateur a atteints la limite negative. Nous ne pouvons pas le rendre positif");
@@ -24,7 +23,6 @@ Fraction<T>::Fraction(T numerateur, T denominateur) {
     this->numerateur = numerateur;
     this->denominateur = denominateur;
 }
-
 template<typename T>
 template<typename typeConverti>
 typeConverti Fraction<T>::convertir() const {
@@ -44,12 +42,9 @@ Fraction<T> Fraction<T>::simplifier() const {
 
     T div = pgcd(numerateur, denominateur);
 
-    // TODO: Ce if sert à optimiser 2 divisions par 1. Est-ce négligeable ?
-    if (div != 1) {
-        return Fraction<T>(numerateur / div, denominateur / div);
-    } else {
-        return Fraction(numerateur, denominateur);
-    }
+    
+
+    return Fraction<T>(numerateur / div, denominateur / div);
 
 }
 
