@@ -97,15 +97,6 @@ void Fraction<T>::operator+=(const Fraction<T> &autreFraction) {
     this->denominateur = thisFractionSimplifiee.denominateur;
 }
 
-//A SUPPRIMER A LA FIN
-template<typename T>
-string Fraction<T>::affichage() {
-    string s = to_string(numerateur);
-    s += "/";
-    s += to_string(denominateur);
-    return s;
-}
-
 template<typename T>
 T Fraction<T>::pgcd(T x, T y) const {
     T reste = x % y;
