@@ -119,4 +119,19 @@ T Fraction<T>::pgcd(T x, T y) const {
     return y;
 }
 
+template<typename T>
+T Fraction<T>::getDenominateur() {
+    return this->denominateur;
+}
+
+template<typename T>
+T Fraction<T>::getNumerateur() {
+    return this->numerateur;
+}
+
+template <typename T>
+std::ostream &operator<< (std::ostream &lhs, Fraction<T> rhs) {
+    return lhs << rhs.getNumerateur() << '/' << rhs.getDenominateur();
+}
+
 #endif //INF2_LABO4_FRACTIONIMPL_H

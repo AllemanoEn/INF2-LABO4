@@ -12,9 +12,8 @@ class Fraction {
      * @param rhs Fraction en question
      * @return le flux correctement affiché
      */
-    friend std::ostream& operator<<(std::ostream& lhs, const Fraction& rhs){
-        lhs << rhs.numerateur << '/' << rhs.denominateur;
-    }
+    template <typename Y>
+    friend std::ostream &operator<< (std::ostream &lhs, Fraction<Y> rhs);
 
 public:
     /**
@@ -82,6 +81,18 @@ public:
      * @param autreFraction
      */
     void operator*=(const Fraction<T> &autreFraction);
+
+    /**
+     * Accesseur du denominateur
+     * @return le denominateur
+     */
+    T getDenominateur();
+
+    /**
+     * Accesseur du numerateur
+     * @return le numerateur
+     */
+    T getNumerateur();
 
 
 private:
