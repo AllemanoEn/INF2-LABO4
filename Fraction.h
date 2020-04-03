@@ -57,13 +57,6 @@ public:
     bool operator==(const Fraction<T> &autreFraction) const;
 
     /**
-     * Additione la fraction à une autre grâce à l'opérateur +
-     * @param autreFraction
-     * @return l'addition de la fraction dans sa forme réduite
-     */
-    Fraction<T> operator+(const Fraction<T> &autreFraction) const;
-
-    /**
      * Multiplie la fraction à une autre grâce à l'opérateur *
      * @param autreFraction
      * @return la multiplication de la fraction dans sa forme réduite
@@ -71,10 +64,17 @@ public:
     Fraction<T> operator*(const Fraction<T> &autreFraction) const;
 
     /**
+     * Additione la fraction à une autre grâce à l'opérateur +
+     * @param autreFraction
+     * @return l'addition de la fraction dans sa forme réduite
+     */
+    Fraction<T> operator+(const Fraction<T> &autreFraction) const;
+
+    /**
      * La fraction est additionnée à une autre grâce à l'opérateur +=
      * @param autreFraction
      */
-    void operator+=(const Fraction<T> &autreFraction);
+    Fraction<T> operator+=(const Fraction<T> &autreFraction);
 
     /**
      * La fraction est multiplée à une autre grâce à l'opérateur +=
@@ -100,7 +100,7 @@ private:
     T denominateur;
 
     /**
-     * Calcule le PGCD de deux nombres
+     * Calcule le plus grand commun diviseur de deux nombres
      * @param x le premier nombre
      * @param y le deuxième nombre
      * @return le PGCD de X et Y
@@ -108,6 +108,14 @@ private:
      *          est utilisée car elle est plus efficace sur les grands nombres.
      */
     T pgcd(T x, T y) const;
+
+    /**
+     * Calcule le plus petit commun multiple
+     * @param x le premier nombre
+     * @param y le deuxième nombre
+     * @return le PPCM de X et Y
+     */
+    T ppcm(T x, T y) const ;
 
 };
 

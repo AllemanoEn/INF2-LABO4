@@ -13,13 +13,17 @@ Fraction<T>::Fraction(T numerateur, T denominateur) {
         throw invalid_argument("le denominateur ne peut etre 0");
 
     if(denominateur < 0){
+
         if(denominateur == numeric_limits<T>::min())
             throw overflow_error("Le denominateur a atteints la limite negative. Nous ne pouvons pas le rendre positif");
+
         if(numerateur == numeric_limits<T>::min())
             throw overflow_error("Le numerateur a atteints la limite negative. Nous ne pouvons pas le rendre positif");
+
         numerateur = - numerateur;
         denominateur = - denominateur;
     }
+
     this->numerateur = numerateur;
     this->denominateur = denominateur;
 }
@@ -42,8 +46,6 @@ Fraction<T> Fraction<T>::simplifier() const {
 
     T div = pgcd(numerateur, denominateur);
 
-    
-
     return Fraction<T>(numerateur / div, denominateur / div);
 
 }
@@ -55,10 +57,11 @@ bool Fraction<T>::identite(Fraction<T> autreFraction) const{
 
 template<typename T>
 bool Fraction<T>::operator==(const Fraction<T> &autreFraction) const {
-    Fraction<T> thisFractionSimplifiee = this->simplifier();
-    Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
-    return (thisFractionSimplifiee.numerateur == autreFractionSimplifiee.numerateur &&
-            thisFractionSimplifiee.denominateur == autreFractionSimplifiee.denominateur);
+     Fraction<T> thisFractionSimplifiee = this->simplifier();
+     Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
+
+     return this->simplifier().identite(autreFraction.simplifier());
+
 }
 
 template<typename T>
@@ -78,29 +81,34 @@ void Fraction<T>::operator*=(const Fraction<T> &autreFraction) {
 }
 
 template<typename T>
-Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const {
-    Fraction<T> thisFractionSimplifiee = this->simplifier();
-    Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
-    if (thisFractionSimplifiee.denominateur != autreFractionSimplifiee.denominateur) {
-        thisFractionSimplifiee.numerateur *= autreFractionSimplifiee.denominateur;
-        autreFractionSimplifiee.numerateur *= thisFractionSimplifiee.denominateur;
-        thisFractionSimplifiee.denominateur *= autreFractionSimplifiee.denominateur;
+Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const{
+
+    Fraction<T> lhsFractionSimplifiee = this->simplifier();
+    Fraction<T> rhsFractionSimplifiee = autreFraction.simplifier();
+
+    if (lhsFractionSimplifiee.denominateur != rhsFractionSimplifiee.denominateur) {
+
+        int ppcmDenominateur = ppcm(lhsFractionSimplifiee.denominateur, rhsFractionSimplifiee.denominateur);
+        int thisMultiplicateur = ppcmDenominateur / lhsFractionSimplifiee.denominateur;
+        int autreMultiplicateur = ppcmDenominateur / rhsFractionSimplifiee.denominateur;
+
+        lhsFractionSimplifiee.numerateur *= thisMultiplicateur;
+        lhsFractionSimplifiee.denominateur *= thisMultiplicateur;
+        rhsFractionSimplifiee.numerateur *= autreMultiplicateur;
+        // le dénominateur de autreFractionSimplifiee n'est pas utilisé
     }
-    return Fraction<T>(thisFractionSimplifiee.numerateur + autreFractionSimplifiee.numerateur,
-                       thisFractionSimplifiee.denominateur);
+
+    T resultatNumerateur = lhsFractionSimplifiee.numerateur + rhsFractionSimplifiee.numerateur;
+    T resultatDenominateur = lhsFractionSimplifiee.denominateur;
+
+    return Fraction<T>(resultatNumerateur, resultatDenominateur);
+
 }
 
 template<typename T>
-void Fraction<T>::operator+=(const Fraction<T> &autreFraction) {
-    Fraction<T> thisFractionSimplifiee = this->simplifier();
-    Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
-    if (thisFractionSimplifiee.denominateur != autreFractionSimplifiee.denominateur) {
-        thisFractionSimplifiee.numerateur *= autreFractionSimplifiee.denominateur;
-        autreFractionSimplifiee.numerateur *= thisFractionSimplifiee.denominateur;
-        thisFractionSimplifiee.denominateur *= autreFractionSimplifiee.denominateur;
-    }
-    this->numerateur = thisFractionSimplifiee.numerateur + autreFractionSimplifiee.numerateur;
-    this->denominateur = thisFractionSimplifiee.denominateur;
+Fraction<T> Fraction<T>::operator+=(const Fraction<T> &autreFraction) {
+    *this = *this + autreFraction;
+    return *this;
 }
 
 template<typename T>
@@ -112,6 +120,13 @@ T Fraction<T>::pgcd(T x, T y) const {
         reste = x % y;
     }
     return y;
+}
+
+template<typename T>
+T Fraction<T>::ppcm(T x, T y) const {
+    long long produitAbs = abs(x * y);
+
+    return T( produitAbs / pgcd(x,y) );
 }
 
 template<typename T>

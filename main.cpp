@@ -5,30 +5,36 @@ int main() {
 
     Fraction <int>f(8,32);
     Fraction <int>f2(2,3);
-    cout << "premier test: " << f << endl;
+    cout << "f = " << f << " , f2 = " << f2 << endl;
+
     Fraction <int>fSimplifie = f.simplifier();
-    cout << "simplifie: " << fSimplifie << endl;
-    cout << "identite 1: " << f.identite(f) << endl;
-    cout << "identite 2: " << f.identite(fSimplifie) << endl;
-    cout << "identite 3: " << f.identite(f2) << endl;
-    cout << "egalite 1: " << (f == f) << endl;
-    cout << "egalite 2: " << (f == fSimplifie) << endl;
-    cout << "egalite 3: " << (f == f2) << endl;
+    cout << "Simplification de f : fs = " << f << " = " << fSimplifie << endl ;
 
+    cout << endl << "Identité :" << endl;
+    cout << "f et f : " << boolalpha << f.identite(f) << endl;
+    cout << "f et fs: " << boolalpha << f.identite(fSimplifie) << endl;
+    cout << "f et f2: " << boolalpha << f.identite(f2) << endl;
 
+    cout << endl << "Egalité :" << endl;
+    cout << "f == f : "  << boolalpha << (f == f) << endl;
+    cout << "f == fs: "  << boolalpha << (f == fSimplifie) << endl;
+    cout << "f == f2: "  << boolalpha << (f == f2) << endl;
+
+    cout << endl << "Addition :" << endl;
     Fraction<int> fAdd1 = f+f;
     Fraction<int> fAdd2 = f+fSimplifie;
     Fraction<int> fAdd3 = f2+f;
-    cout << "addition 1: " << fAdd1 << endl;
-    cout << "addition 2: " << fAdd2 << endl;
-    cout << "addition 3: " << fAdd3 << endl;
+    cout << "f + f  = " << fAdd1 << endl;
+    cout << "f + fs = " << fAdd2 << endl;
+    cout << "f + f2 = " << fAdd3 << endl;
 
+    cout << endl << "Multiplication :" << endl;
     Fraction<int> fMul1 = f*f;
     Fraction<int> fMul2 = f*fSimplifie;
     Fraction<int> fMul3 = f2*f;
-    cout << "multiplication 1: " << fMul1 << endl;
-    cout << "multiplication 2: " << fMul2 << endl;
-    cout << "multiplication 3: " << fMul3 << endl;
+    cout << "f * f  = " << fMul1 << endl;
+    cout << "f * fs = " << fMul2 << endl;
+    cout << "f * f2 = " << fMul3 << endl;
 
     //// Estimation de PI 1
     Fraction<long long>fSomme(4,1);
@@ -48,8 +54,8 @@ int main() {
         signe *= -1;
     }
     count++; // Pour que le comptage commence à 1 et pas à zéro
-    cout << "Résultat de l'estimation de PI 1 (après " << count <<" itérations :"
-         <<  endl << fSomme << " = " << fSomme.convertir<long double>();
+    cout << endl << "Résultat de l'estimation de PI 1 (après " << count <<" itérations) :"
+         << endl << fSomme << " = " << fSomme.convertir<long double>() << endl;
 
     //// Estimation de PI 2
     fSomme = Fraction<long long>(3 , 1);
@@ -71,8 +77,8 @@ int main() {
         signe *= -1;
     }
 
-    cout << "Résultat de l'estimation de PI 1 (après " << count <<" itérations :"
-         <<  endl << fSomme << " = " << fSomme.convertir<long double>();
+    cout << endl << "Résultat de l'estimation de PI 2 (après " << count <<" itérations) :"
+         << endl << fSomme << " = " << fSomme.convertir<long double>() << endl;
 
 
     return 0;
