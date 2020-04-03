@@ -3,12 +3,24 @@
 
 #include "cmath"
 #include "Fraction.h"
+#include "limits"
 
 
 using namespace std;
 
 template<typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) {
+    if(denominateur == 0)
+        throw invalid_argument("le denominateur ne peut etre 0");
+    unsigned negatif = 0;
+    if(denominateur < 0){
+        if(denominateur == numeric_limits<T>::min())
+            throw overflow_error("Le denominateur a atteints la limite negative. Nous ne pouvons pas le rendre positif");
+        if(numerateur == numeric_limits<T>::min())
+            throw overflow_error("Le numerateur a atteints la limite negative. Nous ne pouvons pas le rendre positif");
+        numerateur = - numerateur;
+        denominateur = - denominateur;
+    }
     this->numerateur = numerateur;
     this->denominateur = denominateur;
 }
@@ -17,7 +29,6 @@ template<typename T>
 template<typename typeConverti>
 typeConverti Fraction<T>::convertir() const {
     long double nombreConverti = (long double) numerateur / denominateur;
-
     return typeConverti(nombreConverti);
 }
 
@@ -109,13 +120,11 @@ string Fraction<T>::affichage() {
 template<typename T>
 T Fraction<T>::pgcd(T x, T y) const {
     T reste = x % y;
-
     while (reste) {
         x = y;
         y = reste;
         reste = x % y;
     }
-
     return y;
 }
 
