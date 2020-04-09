@@ -69,16 +69,15 @@ template<typename T>
 Fraction<T> Fraction<T>::operator*(const Fraction<T> &autreFraction) const {
     Fraction<T> thisFractionSimplifiee = this->simplifier();
     Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
-    return Fraction<T>(thisFractionSimplifiee.numerateur * autreFractionSimplifiee.numerateur,
-                       thisFractionSimplifiee.denominateur * autreFractionSimplifiee.denominateur);
+
+    return Fraction<T>( safeMultipl(thisFractionSimplifiee.numerateur, autreFractionSimplifiee.numerateur),
+                        safeMultipl(thisFractionSimplifiee.denominateur, autreFractionSimplifiee.denominateur));
 }
 
 template<typename T>
-void Fraction<T>::operator*=(const Fraction<T> &autreFraction) {
-    Fraction<T> thisFractionSimplifiee = this->simplifier();
-    Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
-    this->numerateur = thisFractionSimplifiee.numerateur * autreFractionSimplifiee.numerateur;
-    this->denominateur = thisFractionSimplifiee.denominateur * autreFractionSimplifiee.denominateur;
+Fraction<T> Fraction<T>::operator*=(const Fraction<T> &autreFraction) {
+    *this = *this * autreFraction;
+    return *this;
 }
 
 template<typename T>
@@ -93,9 +92,9 @@ Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const{
         int thisMultiplicateur = ppcmDenominateur / lhsFractionSimplifiee.denominateur;
         int autreMultiplicateur = ppcmDenominateur / rhsFractionSimplifiee.denominateur;
 
-        lhsFractionSimplifiee.numerateur *= thisMultiplicateur;
-        lhsFractionSimplifiee.denominateur *= thisMultiplicateur;
-        rhsFractionSimplifiee.numerateur *= autreMultiplicateur;
+        lhsFractionSimplifiee.numerateur = safeMultipl(lhsFractionSimplifiee.numerateur, thisMultiplicateur);
+        lhsFractionSimplifiee.denominateur = safeMultipl(lhsFractionSimplifiee.denominateur, thisMultiplicateur);
+        rhsFractionSimplifiee.numerateur = safeMultipl(rhsFractionSimplifiee.numerateur, autreMultiplicateur);
         // le dénominateur de autreFractionSimplifiee n'est pas utilisé
     }
 
@@ -153,5 +152,19 @@ T Fraction<T>::additionCheck(T a, T b) const {
         throw underflow_error("l addition fait un underflow");
     return a + b;
 }
+
+template<typename T>
+T Fraction<T>::safeMultipl(T a, T b) const {
+    if (b > (numeric_limits<T>::max()/a))
+    {
+        if ( (a < 0 && b < 0) || (a > 0 && b > 0))
+            throw overflow_error("la multiplication fait un overflow");
+        else
+            throw underflow_error("la multiplication fait un underflow");
+    }
+
+    return a * b;
+}
+
 
 #endif //INF2_LABO4_FRACTIONIMPL_H

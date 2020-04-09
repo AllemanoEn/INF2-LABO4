@@ -80,7 +80,7 @@ public:
      * La fraction est multiplée à une autre grâce à l'opérateur +=
      * @param autreFraction
      */
-    void operator*=(const Fraction<T> &autreFraction);
+    Fraction<T> operator*=(const Fraction<T> &autreFraction);
 
     /**
      * Accesseur du denominateur
@@ -134,7 +134,7 @@ private:
      * @param b
      * @return
      */
-    T multiplicationCheck(T a, T b);
+    T safeMultipl(T a, T b) const;
 
 };
 

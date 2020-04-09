@@ -3,6 +3,7 @@
 
 int main() {
 
+
     Fraction <int>f(8,32);
     Fraction <int>f2(2,3);
     cout << "f = " << f << " , f2 = " << f2 << endl;
@@ -36,28 +37,34 @@ int main() {
     cout << "f * fs = " << fMul2 << endl;
     cout << "f * f2 = " << fMul3 << endl;
 
-    //// Estimation de PI 1
+    //// Estimations de avec <long long>
+    cout << endl << "Estimations de PI avec des variables <long long> :" << endl;
+    // Formule 1
     Fraction<long long>fSomme(4,1);
     short signe = 1;
     long long count = 0;
     for(; count <= numeric_limits<long long>::max(); ++count)
     {
-
         try
         {
             fSomme += Fraction<long long>(4 * signe , (1 + 2 * count));
         }
-        catch(...)
+        catch(overflow_error& of)
         {
+            cout << of.what();
+            break;
+        }
+        catch(underflow_error& uf)
+        {
+            cout << uf.what();
             break;
         }
         signe *= -1;
     }
     count++; // Pour que le comptage commence à 1 et pas à zéro
-    cout << endl << "Résultat de l'estimation de PI 1 (après " << count <<" itérations) :"
-         << endl << fSomme << " = " << fSomme.convertir<long double>() << endl;
-
-    //// Estimation de PI 2
+    cout << endl << "\tFormule 1 (après " << count <<" itérations) :"
+         << endl << "\t" << fSomme << " = " << fSomme.convertir<long double>() << endl;
+    //Formule 2
     fSomme = Fraction<long long>(3 , 1);
     signe = 1;
     count = 1;
@@ -77,8 +84,10 @@ int main() {
         signe *= -1;
     }
 
-    cout << endl << "Résultat de l'estimation de PI 2 (après " << count <<" itérations) :"
-         << endl << fSomme << " = " << fSomme.convertir<long double>() << endl;
+    cout << endl << "\tFormule 2 (apres " << count <<" iterations) :"
+         << endl << "\t" << fSomme << " = " << fSomme.convertir<double>() << endl;
+
+
 
 
     return 0;
