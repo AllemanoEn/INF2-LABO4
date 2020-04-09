@@ -89,9 +89,9 @@ Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const{
 
     if (lhsFractionSimplifiee.denominateur != rhsFractionSimplifiee.denominateur) {
 
-        int ppcmDenominateur = ppcm(lhsFractionSimplifiee.denominateur, rhsFractionSimplifiee.denominateur);
-        int thisMultiplicateur = ppcmDenominateur / lhsFractionSimplifiee.denominateur;
-        int autreMultiplicateur = ppcmDenominateur / rhsFractionSimplifiee.denominateur;
+        T ppcmDenominateur = ppcm(lhsFractionSimplifiee.denominateur, rhsFractionSimplifiee.denominateur);
+        T thisMultiplicateur = ppcmDenominateur / lhsFractionSimplifiee.denominateur;
+        T autreMultiplicateur = ppcmDenominateur / rhsFractionSimplifiee.denominateur;
 
         lhsFractionSimplifiee.numerateur = safeMultipl(lhsFractionSimplifiee.numerateur, thisMultiplicateur);
         lhsFractionSimplifiee.denominateur = safeMultipl(lhsFractionSimplifiee.denominateur, thisMultiplicateur);
@@ -125,7 +125,7 @@ T Fraction<T>::pgcd(T x, T y) const {
 
 template<typename T>
 T Fraction<T>::ppcm(T x, T y) const {
-    long long produitAbs = abs(x * y);
+    T produitAbs = abs(safeMultipl(x, y));
 
     return T( produitAbs / pgcd(x,y) );
 }
@@ -160,14 +160,12 @@ T Fraction<T>::safeMultipl(T a, T b) const {
     if (((a < 0 && b < 0) || (a > 0 && b > 0)) &&
         ((unsigned long long)abs(b) > (numeric_limits<T>::max()/ (unsigned long long)abs(a))))
     {
-        cout << " overflow: a = " << a << " , b = " << b << endl;
         throw overflow_error("la multiplication fait un overflow");
     }
 
     else if(((a > 0 && b < 0) || (a < 0 && b > 0)) &&
             ( (unsigned long long)abs(b) > ((unsigned long long)abs(numeric_limits<T>::min())/ abs(a))))
     {
-        cout << "underflow: a = " << a << " , b = " << b << endl;
         throw underflow_error("la multiplication fait un underflow");
     }
 

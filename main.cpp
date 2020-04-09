@@ -5,7 +5,6 @@
 
 int main() {
 
-
     Fraction <int>f(8,32);
     Fraction <int>f2(2,3);
     cout << "f = " << f << " , f2 = " << f2 << endl;
@@ -43,13 +42,15 @@ int main() {
     cout << endl << "Estimations de PI avec des variables <long long> :" << endl;
     // Formule 1
     Fraction<long long>fSomme(4,1);
-    short signe = 1;
-    unsigned long long count = 0;
+    short signe = -1;
+    unsigned long long count = 1;
     for(; count <= numeric_limits<unsigned long long>::max(); ++count)
     {
         try
         {
-            fSomme += Fraction<long long>(4 * signe , (1 + 2 * count));
+            int num = 4 * signe;
+            int denom = 1 + 2 * count;
+            fSomme += Fraction<long long>((4 * signe) , (1 + 2 * count));
         }
         catch(...)
         {
@@ -57,9 +58,9 @@ int main() {
         }
         signe *= -1;
     }
-    count++; // Pour que le comptage commence à 1 et pas à zéro
+
     cout << endl << "\tFormule 1 (après " << count <<" itérations) :"
-         << endl << "\t" << fSomme << " = " << fSomme.convertir<long double>() << endl;
+         << endl << "\t" << fSomme << " = " << fixed << fSomme.convertir<long double>() << endl;
     //Formule 2
     fSomme = Fraction<long long>(3 , 1);
     signe = 1;
@@ -81,9 +82,7 @@ int main() {
     }
 
     cout << endl << "\tFormule 2 (apres " << count <<" iterations) :"
-         << endl << "\t" << fSomme << " = " << fSomme.convertir<double>() << endl;
-
-
+         << endl << "\t" << fSomme << " = " << fixed << fSomme.convertir<double>() << endl;
 
 
     return 0;
