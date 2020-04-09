@@ -117,6 +117,25 @@ private:
      */
     T ppcm(T x, T y) const ;
 
+    /**
+     * Verifie si a + b fait un overflow ou un underflow. Si ce n'est pas le cas
+     * renvoie le résultat le l'addition
+     * @param a
+     * @param b
+     * @return le résultat de l'addition
+     * @throw overflow si l'addition fait un overflow
+     * @throw underflow si l'addition fait un underflow
+     */
+    T additionCheck(T a, T b) const;
+
+    /**
+     * 
+     * @param a
+     * @param b
+     * @return
+     */
+    T multiplicationCheck(T a, T b);
+
 };
 
 #include "FractionImpl.h"

@@ -9,7 +9,7 @@ using namespace std;
 
 template<typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) {
-    if(denominateur == 0)
+    if (denominateur == 0)
         throw invalid_argument("le denominateur ne peut etre 0");
 
     if(denominateur < 0){
@@ -27,6 +27,7 @@ Fraction<T>::Fraction(T numerateur, T denominateur) {
     this->numerateur = numerateur;
     this->denominateur = denominateur;
 }
+
 template<typename T>
 template<typename typeConverti>
 typeConverti Fraction<T>::convertir() const {
@@ -51,7 +52,7 @@ Fraction<T> Fraction<T>::simplifier() const {
 }
 
 template<typename T>
-bool Fraction<T>::identite(Fraction<T> autreFraction) const{
+bool Fraction<T>::identite(Fraction<T> autreFraction) const {
     return (this->numerateur == autreFraction.numerateur && this->denominateur == autreFraction.denominateur);
 }
 
@@ -139,9 +140,18 @@ T Fraction<T>::getNumerateur() {
     return this->numerateur;
 }
 
-template <typename T>
-std::ostream &operator<< (std::ostream &lhs, Fraction<T> rhs) {
+template<typename T>
+std::ostream &operator<<(std::ostream &lhs, Fraction<T> rhs) {
     return lhs << rhs.getNumerateur() << '/' << rhs.getDenominateur();
+}
+
+template<typename T>
+T Fraction<T>::additionCheck(T a, T b) const {
+    if ((b > 0) && (a > numeric_limits<T>::max() - b))
+        throw overflow_error("l addition fait un overflow");
+    if ((b < 0) && (a < numeric_limits<T>::min() - b))
+        throw underflow_error("l addition fait un underflow");
+    return a + b;
 }
 
 #endif //INF2_LABO4_FRACTIONIMPL_H
