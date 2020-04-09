@@ -12,6 +12,7 @@ Fraction<T>::Fraction(T numerateur, T denominateur) {
     if (denominateur == 0)
         throw invalid_argument("le denominateur ne peut etre 0");
 
+
     if(denominateur < 0){
 
         if(denominateur == numeric_limits<T>::min())
@@ -155,12 +156,19 @@ T Fraction<T>::additionCheck(T a, T b) const {
 
 template<typename T>
 T Fraction<T>::safeMultipl(T a, T b) const {
-    if (b > (numeric_limits<T>::max()/a))
+
+    if (((a < 0 && b < 0) || (a > 0 && b > 0)) &&
+        ((unsigned long long)abs(b) > (numeric_limits<T>::max()/ (unsigned long long)abs(a))))
     {
-        if ( (a < 0 && b < 0) || (a > 0 && b > 0))
-            throw overflow_error("la multiplication fait un overflow");
-        else
-            throw underflow_error("la multiplication fait un underflow");
+        cout << " overflow: a = " << a << " , b = " << b << endl;
+        throw overflow_error("la multiplication fait un overflow");
+    }
+
+    else if(((a > 0 && b < 0) || (a < 0 && b > 0)) &&
+            ( (unsigned long long)abs(b) > ((unsigned long long)abs(numeric_limits<T>::min())/ abs(a))))
+    {
+        cout << "underflow: a = " << a << " , b = " << b << endl;
+        throw underflow_error("la multiplication fait un underflow");
     }
 
     return a * b;

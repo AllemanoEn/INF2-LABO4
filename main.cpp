@@ -44,21 +44,15 @@ int main() {
     // Formule 1
     Fraction<long long>fSomme(4,1);
     short signe = 1;
-    long long count = 0;
-    for(; count <= numeric_limits<long long>::max(); ++count)
+    unsigned long long count = 0;
+    for(; count <= numeric_limits<unsigned long long>::max(); ++count)
     {
         try
         {
             fSomme += Fraction<long long>(4 * signe , (1 + 2 * count));
         }
-        catch(overflow_error& of)
+        catch(...)
         {
-            cout << of.what();
-            break;
-        }
-        catch(underflow_error& uf)
-        {
-            cout << uf.what();
             break;
         }
         signe *= -1;
@@ -71,7 +65,7 @@ int main() {
     signe = 1;
     count = 1;
 
-    for(; count <= numeric_limits<long long>::max()/2; ++count)
+    for(; count <= numeric_limits<unsigned long long>::max()/2; ++count)
     {
 
         try
