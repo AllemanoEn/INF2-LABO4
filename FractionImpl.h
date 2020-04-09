@@ -98,7 +98,7 @@ Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const{
         // le dénominateur de autreFractionSimplifiee n'est pas utilisé
     }
 
-    T resultatNumerateur = lhsFractionSimplifiee.numerateur + rhsFractionSimplifiee.numerateur;
+    T resultatNumerateur = additionCheck(lhsFractionSimplifiee.numerateur, rhsFractionSimplifiee.numerateur);
     T resultatDenominateur = lhsFractionSimplifiee.denominateur;
 
     return Fraction<T>(resultatNumerateur, resultatDenominateur);
