@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Fraction.h"
 
+//Cette fonction nous permet (sans copier de code) de tester les estimations de PI avec plusieurs type.
 template <typename T>
 void estimationPI(Fraction<T> f){
     // Formule 1
