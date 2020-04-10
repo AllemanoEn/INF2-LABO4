@@ -52,38 +52,78 @@ void estimationPI(Fraction<T> f){
 }
 
 int main() {
-    Fraction <int>f(8,32);
-    Fraction <int>f2(2,3);
-    cout << "f = " << f << " , f2 = " << f2 << endl;
+    cout << "Les tests commencent: " << endl << endl;
+    cout << "On verifie d'abord que les fonctions fonctionnes avec le type int :" << endl << endl;
+    cout << "On construit les deux fractions suivantes :" << endl;
+    cout << "Fraction <int>f(8,32);" << endl;
+    cout << "Fraction <int>f2(2,3);" << endl;
+    Fraction<int> f(8, 32);
+    Fraction<int> f2(2, 3);
+    cout << "cout << \"f = \" << f << \" , f2 = \" << f2 << endl; :" << endl;
+    cout << "f = " << f << " , f2 = " << f2 << endl << endl;
 
-    Fraction <int>fSimplifie = f.simplifier();
-    cout << "Simplification de f : fs = " << f << " = " << fSimplifie << endl ;
+    Fraction<int> fSimplifie = f.simplifier();
+    cout << "Fraction <int>fSimplifie = f.simplifier(); :" << endl;
+    cout << "Simplification de f : fs = " << f << " = " << fSimplifie << endl;
 
-    cout << endl << "Identité :" << endl;
+    cout << endl << "Identite :" << endl;
     cout << "f et f : " << boolalpha << f.identite(f) << endl;
     cout << "f et fs: " << boolalpha << f.identite(fSimplifie) << endl;
     cout << "f et f2: " << boolalpha << f.identite(f2) << endl;
 
-    cout << endl << "Egalité :" << endl;
-    cout << "f == f : "  << boolalpha << (f == f) << endl;
-    cout << "f == fs: "  << boolalpha << (f == fSimplifie) << endl;
-    cout << "f == f2: "  << boolalpha << (f == f2) << endl;
+    cout << endl << "Egalite :" << endl;
+    cout << "f == f : " << boolalpha << (f == f) << endl;
+    cout << "f == fs: " << boolalpha << (f == fSimplifie) << endl;
+    cout << "f == f2: " << boolalpha << (f == f2) << endl;
 
     cout << endl << "Addition :" << endl;
-    Fraction<int> fAdd1 = f+f;
-    Fraction<int> fAdd2 = f+fSimplifie;
-    Fraction<int> fAdd3 = f2+f;
+    Fraction<int> fAdd1 = f + f;
+    Fraction<int> fAdd2 = f + fSimplifie;
+    Fraction<int> fAdd3 = f2 + f;
     cout << "f + f  = " << fAdd1 << endl;
     cout << "f + fs = " << fAdd2 << endl;
     cout << "f + f2 = " << fAdd3 << endl;
 
     cout << endl << "Multiplication :" << endl;
-    Fraction<int> fMul1 = f*f;
-    Fraction<int> fMul2 = f*fSimplifie;
-    Fraction<int> fMul3 = f2*f;
+    Fraction<int> fMul1 = f * f;
+    Fraction<int> fMul2 = f * fSimplifie;
+    Fraction<int> fMul3 = f2 * f;
     cout << "f * f  = " << fMul1 << endl;
     cout << "f * fs = " << fMul2 << endl;
     cout << "f * f2 = " << fMul3 << endl;
+
+    cout << endl << "Addition +=:" << endl;
+    f += f;
+    cout << "f += f :" << f << endl;
+
+    cout << endl << "Multiplication *=:" << endl;
+    f *= f;
+    cout << "f *= f :" << f << endl;
+
+    cout << endl << endl << "On verifie quelques overflow/underflow: " << endl << endl;
+
+    cout << "Fraction<char> charF1(64,7);" << endl;
+    cout << "Fraction<char> charF2(2,16);" << endl;
+    cout << "On les multiplie : " << endl;
+    Fraction<char> charF1(64, 1);
+    Fraction<char> charF2(2, 1);
+    try {
+        charF1 * charF2;
+    } catch (overflow_error &e) {
+        cout << e.what();
+    }
+    cout << endl << endl << "Fraction<long long> longlongF1(numeric_limits<long long>::min(),1);" << endl;
+    cout << "Fraction<long long> longlongF2(-2,1);" << endl;
+    cout << "On les additionnes : " << endl;
+    Fraction<long long> longlongF1(numeric_limits<long long>::min(), 1);
+    Fraction<long long> longlongF2(-2, 1);
+    try {
+        longlongF1 + longlongF2;
+    } catch (underflow_error &e) {
+        cout << e.what();
+    }
+    cout << endl << endl;
+
 
     //// Estimations de avec <long long>
     cout << endl << "Estimations de PI avec des variables <long long> :" << endl;
@@ -97,3 +137,4 @@ int main() {
 
     return EXIT_SUCCESS;
 }
+

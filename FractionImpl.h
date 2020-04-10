@@ -67,10 +67,10 @@ bool Fraction<T>::identite(Fraction<T> autreFraction) const {
 
 template<typename T>
 bool Fraction<T>::operator==(const Fraction<T> &autreFraction) const {
-     Fraction<T> thisFractionSimplifiee = this->simplifier();
-     Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
+    Fraction<T> thisFractionSimplifiee = this->simplifier();
+    Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
 
-     return this->simplifier().identite(autreFraction.simplifier());
+    return this->simplifier().identite(autreFraction.simplifier());
 
 }
 
