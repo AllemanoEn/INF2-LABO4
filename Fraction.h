@@ -1,3 +1,13 @@
+/// \file Fraction.h
+/// \authors Enzo Allemano, David Pellissier, Michael Ruckstuhl
+/// \date 10.04.2020
+///
+/// \brief \b Laboratoire \b 04
+/// \brief Contient la classe Fraction
+///
+/// Remarque :
+///
+/// Compilateur : MinGw-g++ 6.3.0
 #ifndef INF2_LABO4_FRACTION_H
 #define INF2_LABO4_FRACTION_H
 

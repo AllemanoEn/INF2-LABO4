@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Fraction.h"
 
-
-
 int main() {
 
     Fraction <int>f(8,32);
@@ -83,7 +81,6 @@ int main() {
 
     cout << endl << "\tFormule 2 (apres " << count <<" iterations) :"
          << endl << "\t" << fSomme << " = " << fixed << fSomme.convertir<double>() << endl;
-
-
-    return 0;
+    
+    return EXIT_SUCCESS;
 }

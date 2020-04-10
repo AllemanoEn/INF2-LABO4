@@ -1,3 +1,11 @@
+/// \file FractionImpl.h
+/// \authors Enzo Allemano, David Pellissier, Michael Ruckstuhl
+/// \date 10.04.2020
+///
+/// Remarque :
+///
+/// Compilateur : MinGw-g++ 6.3.0
+
 #ifndef INF2_LABO4_FRACTIONIMPL_H
 #define INF2_LABO4_FRACTIONIMPL_H
 
