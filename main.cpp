@@ -1,8 +1,57 @@
 #include <iostream>
 #include "Fraction.h"
 
-int main() {
+template <typename T>
+void estimationPI(Fraction<T> f){
+    // Formule 1
 
+    short signe = -1;
+    long long count = 1;
+    for(; count <= numeric_limits<T>::max(); ++count)
+    {
+        try
+        {
+            int num = 4 * signe;
+            int denom = 1 + 2 * count;
+            f += Fraction<T>((4 * signe) , (1 + 2 * count));
+        }
+        catch(...)
+        {
+            break;
+        }
+        signe *= -1;
+    }
+
+    cout << endl << "\tFormule 1 (après " << count <<" itérations) :"
+         << endl << "\t" << f << " = " << fixed << f.template convertir<long double>() << endl;
+
+
+    //Formule 2
+    f = Fraction<T>(3 , 1);
+    signe = 1;
+    count = 1;
+
+    for(; count <= numeric_limits<T>::max()/2; ++count)
+    {
+
+        try
+        {
+            unsigned i = 2 * count ;
+            f += Fraction<T>( 4 * signe, i++ * i++ * i);
+        }
+        catch(...)
+        {
+            break;
+        }
+        signe *= -1;
+    }
+
+    cout << endl << "\tFormule 2 (apres " << count <<" iterations) :"
+         << endl << "\t" << f << " = " << fixed << f.template convertir<long double>() << endl;
+
+}
+
+int main() {
     Fraction <int>f(8,32);
     Fraction <int>f2(2,3);
     cout << "f = " << f << " , f2 = " << f2 << endl;
@@ -38,49 +87,13 @@ int main() {
 
     //// Estimations de avec <long long>
     cout << endl << "Estimations de PI avec des variables <long long> :" << endl;
-    // Formule 1
-    Fraction<long long>fSomme(4,1);
-    short signe = -1;
-    unsigned long long count = 1;
-    for(; count <= numeric_limits<unsigned long long>::max(); ++count)
-    {
-        try
-        {
-            int num = 4 * signe;
-            int denom = 1 + 2 * count;
-            fSomme += Fraction<long long>((4 * signe) , (1 + 2 * count));
-        }
-        catch(...)
-        {
-            break;
-        }
-        signe *= -1;
-    }
+    Fraction<long long>fSomme1(4,1);
+    estimationPI(fSomme1);
 
-    cout << endl << "\tFormule 1 (après " << count <<" itérations) :"
-         << endl << "\t" << fSomme << " = " << fixed << fSomme.convertir<long double>() << endl;
-    //Formule 2
-    fSomme = Fraction<long long>(3 , 1);
-    signe = 1;
-    count = 1;
+    //// Estimations de avec <int>
+    cout << endl << "Estimations de PI avec des variables <int> :" << endl;
+    Fraction<int>fSomme2(4,1);
+    estimationPI(fSomme2);
 
-    for(; count <= numeric_limits<unsigned long long>::max()/2; ++count)
-    {
-
-        try
-        {
-            unsigned i = 2 * count ;
-            fSomme += Fraction<long long>( 4 * signe, i++ * i++ * i);
-        }
-        catch(...)
-        {
-            break;
-        }
-        signe *= -1;
-    }
-
-    cout << endl << "\tFormule 2 (apres " << count <<" iterations) :"
-         << endl << "\t" << fSomme << " = " << fixed << fSomme.convertir<double>() << endl;
-    
     return EXIT_SUCCESS;
 }
