@@ -122,6 +122,17 @@ int main() {
     } catch (underflow_error &e) {
         cout << e.what();
     }
+    cout << endl << endl << "Un dernier avec un UNSIGNED long" << endl;
+    cout << "Fraction<unsigned long> ulF1(numeric_limits<unsigned long>::max(), 1);" << endl;
+    cout << "Fraction<unsigned long> ulF2(2, 1);" << endl;
+    cout << "On les multiplie : " << endl;
+    Fraction<unsigned long> ulF1(numeric_limits<unsigned long>::max(), 1);
+    Fraction<unsigned long> ulF2(2, 1);
+    try {
+        ulF1 + ulF2;
+    } catch (overflow_error &e) {
+        cout << e.what();
+    }
     cout << endl << endl;
 
 
