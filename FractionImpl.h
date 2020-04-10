@@ -61,7 +61,7 @@ Fraction<T> Fraction<T>::simplifier() const {
 }
 
 template<typename T>
-bool Fraction<T>::identite(Fraction<T> autreFraction) const {
+bool Fraction<T>::identite(const Fraction<T> &autreFraction) const {
     return (this->numerateur == autreFraction.numerateur && this->denominateur == autreFraction.denominateur);
 }
 
@@ -107,7 +107,7 @@ Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const{
         // le dénominateur de autreFractionSimplifiee n'est pas utilisé
     }
 
-    T resultatNumerateur = additionCheck(lhsFractionSimplifiee.numerateur, rhsFractionSimplifiee.numerateur);
+    T resultatNumerateur = safeAdd(lhsFractionSimplifiee.numerateur, rhsFractionSimplifiee.numerateur);
     T resultatDenominateur = lhsFractionSimplifiee.denominateur;
 
     return Fraction<T>(resultatNumerateur, resultatDenominateur).simplifier();
@@ -139,12 +139,12 @@ T Fraction<T>::ppcm(T x, T y) const {
 }
 
 template<typename T>
-T Fraction<T>::getDenominateur() {
+T Fraction<T>::getDenominateur() const {
     return this->denominateur;
 }
 
 template<typename T>
-T Fraction<T>::getNumerateur() {
+T Fraction<T>::getNumerateur() const {
     return this->numerateur;
 }
 
@@ -154,7 +154,7 @@ std::ostream &operator<<(std::ostream &lhs, Fraction<T>& rhs) {
 }
 
 template<typename T>
-T Fraction<T>::additionCheck(T a, T b) const {
+T Fraction<T>::safeAdd(T a, T b) const {
     if ((b > 0) && (a > numeric_limits<T>::max() - b))
         throw overflow_error("l addition fait un overflow");
     if ((b < 0) && (a < numeric_limits<T>::min() - b))

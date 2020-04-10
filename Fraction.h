@@ -14,6 +14,7 @@
 
 #include <iostream>
 
+
 template<typename T>
 class Fraction {
 
@@ -23,10 +24,9 @@ public:
      * @param numerateur
      * @param denominateur
      * @throw invalid_argument si le denominateur est egal a zero
-     * @throw overflow_error lorsque le numerateur et/ou denominateur devient positif
+     * @throw overflow_error lorsque le numerateur et/ou denominateur déborde lorsqu'il devient positif (types signés)
      */
     Fraction<T>(T numerateur, T denominateur);
-
 
     /**
      * Convertit une fraction dans un type precis
@@ -50,7 +50,7 @@ public:
      * @param autreFraction
      * @return vrai si les numérateurs et dénominateurs sont égaux
      */
-    bool identite(Fraction<T> autreFraction) const;
+    bool identite(const Fraction<T> &autreFraction) const;
 
     /**
      * Vérifie que la fraction est égale à une autre fraction grâce à l'opérateur =
@@ -67,26 +67,28 @@ public:
     Fraction<T> operator*(const Fraction<T> &autreFraction) const;
 
     /**
-     * Additione la fraction à une autre
+     * Retourne la somme de deux fractions
      * @param autreFraction
      * @return l'addition de la fraction dans sa forme réduite
      */
     Fraction<T> operator+(const Fraction<T> &autreFraction) const;
 
     /**
-     * La fraction est additionnée à une autre grâce à l'opérateur +=
+     * La fraction est additionnée à une autre grâce à l'opérateur +
      * @param autreFraction
+     * @return le résultat de l'addition
      */
     Fraction<T> operator+=(const Fraction<T> &autreFraction);
 
     /**
      * La fraction est multipliée à une autre grâce à l'opérateur *
      * @param autreFraction
+     * @return le résultat de la multiplication
      */
     Fraction<T> operator*=(const Fraction<T> &autreFraction);
 
     /**
-     * Permet d'afficher correctement une fraction
+     * Permet d'afficher une fraction
      * @param lhs flux ostream
      * @param rhs Fraction en question
      * @return le flux correctement affiché
@@ -94,17 +96,18 @@ public:
     template <typename Y>
     friend std::ostream &operator<< (std::ostream &lhs, Fraction<Y>& rhs);
 
+
     /**
      * Accesseur du denominateur
      * @return le denominateur
      */
-    T getDenominateur();
+    T getDenominateur() const;
 
     /**
      * Accesseur du numerateur
      * @return le numerateur
      */
-    T getNumerateur();
+    T getNumerateur() const;
 
 
 private:
@@ -139,7 +142,7 @@ private:
      * @throw overflow si l'addition fait un overflow
      * @throw underflow si l'addition fait un underflow
      */
-    T additionCheck(T a, T b) const;
+    T safeAdd(T a, T b) const;
 
     /**
      * Effectue a * b dans la mesure ou le resultat ne risque pas de deborder des limites du type T
