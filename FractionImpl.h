@@ -80,7 +80,7 @@ Fraction<T> Fraction<T>::operator*(const Fraction<T> &autreFraction) const {
     Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
 
     return Fraction<T>( safeMultipl(thisFractionSimplifiee.numerateur, autreFractionSimplifiee.numerateur),
-                        safeMultipl(thisFractionSimplifiee.denominateur, autreFractionSimplifiee.denominateur));
+                        safeMultipl(thisFractionSimplifiee.denominateur, autreFractionSimplifiee.denominateur)).simplifier();
 }
 
 template<typename T>
@@ -110,7 +110,7 @@ Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const{
     T resultatNumerateur = additionCheck(lhsFractionSimplifiee.numerateur, rhsFractionSimplifiee.numerateur);
     T resultatDenominateur = lhsFractionSimplifiee.denominateur;
 
-    return Fraction<T>(resultatNumerateur, resultatDenominateur);
+    return Fraction<T>(resultatNumerateur, resultatDenominateur).simplifier();
 
 }
 
