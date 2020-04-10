@@ -136,8 +136,8 @@ int main() {
     }
     cout << endl << endl;
 
-    // Dans les deux cas la deuxième formule est plus précise pour l'estimation de PI. Le calcul avec des <long long>
-    // est plus précis mais effectue plus d'itérations que la version avec des <int>.
+    // Dans les deux cas la deuxième formule est plus précise pour l'estimation de PI, et a beaucoup moins d'itérations.
+    // Le calcul avec des <long long> est plus précis mais effectue plus d'itérations que la version avec des <int>.
 
     //// Estimations de avec <long long>
     cout << endl << "Estimations de PI avec des variables <long long> :" << endl;

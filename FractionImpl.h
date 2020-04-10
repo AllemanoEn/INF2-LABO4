@@ -75,7 +75,7 @@ bool Fraction<T>::operator==(const Fraction<T> &autreFraction) const {
 }
 
 template<typename T>
-Fraction<T> Fraction<T>::operator*(const Fraction<T> &autreFraction) const {
+Fraction<T> Fraction<T>::operator*(const Fraction<T> autreFraction) const {
     Fraction<T> thisFractionSimplifiee = this->simplifier();
     Fraction<T> autreFractionSimplifiee = autreFraction.simplifier();
 
@@ -90,7 +90,7 @@ Fraction<T> Fraction<T>::operator*=(const Fraction<T> &autreFraction) {
 }
 
 template<typename T>
-Fraction<T> Fraction<T>::operator+(const Fraction<T> &autreFraction) const{
+Fraction<T> Fraction<T>::operator+(const Fraction<T> autreFraction) const{
 
     Fraction<T> lhsFractionSimplifiee = this->simplifier();
     Fraction<T> rhsFractionSimplifiee = autreFraction.simplifier();
@@ -133,9 +133,13 @@ T Fraction<T>::pgcd(T x, T y) const {
 
 template<typename T>
 T Fraction<T>::ppcm(T x, T y) const {
-    T produitAbs = abs(safeMultipl(x, y));
+    T produit = safeMultipl(x, y);
 
-    return T( produitAbs / pgcd(x,y) );
+    if(produit < 0){
+        produit = safeMultipl(produit, -1);
+    }
+
+    return T( produit / pgcd(x,y) );
 }
 
 template<typename T>
@@ -165,14 +169,18 @@ T Fraction<T>::safeAdd(T a, T b) const {
 template<typename T>
 T Fraction<T>::safeMultipl(T a, T b) const {
 
+    // Car selon le compilateur utilisé, la fonction abs() ne prend pas les entiers non signés
+    long long signedA =  a,
+              signedB = b;
+
     if (((a < 0 && b < 0) || (a > 0 && b > 0)) &&
-        ((unsigned long long)abs(b) > (numeric_limits<T>::max()/ (unsigned long long)abs(a))))
+        ( (unsigned long long) abs(signedB) > ( numeric_limits<T>::max() / (unsigned long long) abs(signedB) )))
     {
         throw overflow_error("la multiplication fait un overflow");
     }
 
     else if(((a > 0 && b < 0) || (a < 0 && b > 0)) &&
-            ( (unsigned long long)abs(b) > ((unsigned long long)abs(numeric_limits<T>::min())/ abs(a))))
+            ( (unsigned long long)abs(signedB) > ( (unsigned long long)abs( (long long) numeric_limits<T>::min()) / abs(signedA) )))
     {
         throw underflow_error("la multiplication fait un underflow");
     }

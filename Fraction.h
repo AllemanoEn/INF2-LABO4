@@ -64,14 +64,14 @@ public:
      * @param autreFraction
      * @return la multiplication de la fraction dans sa forme réduite
      */
-    Fraction<T> operator*(const Fraction<T> &autreFraction) const;
+    Fraction<T> operator*(const Fraction<T> autreFraction) const;
 
     /**
      * Retourne la somme de deux fractions
      * @param autreFraction
      * @return l'addition de la fraction dans sa forme réduite
      */
-    Fraction<T> operator+(const Fraction<T> &autreFraction) const;
+    Fraction<T> operator+(const Fraction<T> autreFraction) const;
 
     /**
      * La fraction est additionnée à une autre grâce à l'opérateur +
