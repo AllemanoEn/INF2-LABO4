@@ -8,6 +8,7 @@
 /// Remarque :
 ///
 /// Compilateur : MinGw-g++ 6.3.0
+
 #ifndef INF2_LABO4_FRACTION_H
 #define INF2_LABO4_FRACTION_H
 
@@ -16,27 +17,19 @@
 template<typename T>
 class Fraction {
 
-    /**
-     * Permet d'afficher correctement une fraction
-     * @param lhs flux ostream
-     * @param rhs Fraction en question
-     * @return le flux correctement affiché
-     */
-    template <typename Y>
-    friend std::ostream &operator<< (std::ostream &lhs, Fraction<Y> rhs);
-
 public:
     /**
-     * Construit une fraction
-     * 3on grâce au numerateur et au dénominateur
+     * Construit une fraction grâce au numerateur et au dénominateur
      * @param numerateur
      * @param denominateur
+     * @throw invalid_argument si le denominateur est egal a zero
+     * @throw overflow_error lorsque le numerateur et/ou denominateur devient positif
      */
     Fraction<T>(T numerateur, T denominateur);
 
 
     /**
-     * Convertit une fraction dans un type précis
+     * Convertit une fraction dans un type precis
      * @tparam typeConverti le type dans lequel convertir la fraction
      * @return la fraction convertie
      */
@@ -74,7 +67,7 @@ public:
     Fraction<T> operator*(const Fraction<T> &autreFraction) const;
 
     /**
-     * Additione la fraction à une autre grâce à l'opérateur +
+     * Additione la fraction à une autre
      * @param autreFraction
      * @return l'addition de la fraction dans sa forme réduite
      */
@@ -87,10 +80,19 @@ public:
     Fraction<T> operator+=(const Fraction<T> &autreFraction);
 
     /**
-     * La fraction est multiplée à une autre grâce à l'opérateur +=
+     * La fraction est multipliée à une autre grâce à l'opérateur *
      * @param autreFraction
      */
     Fraction<T> operator*=(const Fraction<T> &autreFraction);
+
+    /**
+     * Permet d'afficher correctement une fraction
+     * @param lhs flux ostream
+     * @param rhs Fraction en question
+     * @return le flux correctement affiché
+     */
+    template <typename Y>
+    friend std::ostream &operator<< (std::ostream &lhs, Fraction<Y>& rhs);
 
     /**
      * Accesseur du denominateur
@@ -124,25 +126,28 @@ private:
      * @param x le premier nombre
      * @param y le deuxième nombre
      * @return le PPCM de X et Y
+     * @details Le calcul du PGCD est: | x * y | / pgcd(x, y)
      */
     T ppcm(T x, T y) const ;
 
     /**
      * Verifie si a + b fait un overflow ou un underflow. Si ce n'est pas le cas
-     * renvoie le résultat le l'addition
+     * renvoie le resultat le l'addition
      * @param a
      * @param b
-     * @return le résultat de l'addition
+     * @return le resultat de l'addition
      * @throw overflow si l'addition fait un overflow
      * @throw underflow si l'addition fait un underflow
      */
     T additionCheck(T a, T b) const;
 
     /**
-     * 
+     * Effectue a * b dans la mesure ou le resultat ne risque pas de deborder des limites du type T
      * @param a
      * @param b
-     * @return
+     * @return le produit de a et b
+     * @throw overflow si la multiplication donne un nombre trop grand
+     * @throw underflow si la multiplication renvoie un nombre trop petit
      */
     T safeMultipl(T a, T b) const;
 

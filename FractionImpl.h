@@ -24,10 +24,10 @@ Fraction<T>::Fraction(T numerateur, T denominateur) {
     if(denominateur < 0){
 
         if(denominateur == numeric_limits<T>::min())
-            throw overflow_error("Le denominateur a atteints la limite negative. Nous ne pouvons pas le rendre positif");
+            throw overflow_error("Le denominateur a atteint la limite negative. Nous ne pouvons pas le rendre positif");
 
         if(numerateur == numeric_limits<T>::min())
-            throw overflow_error("Le numerateur a atteints la limite negative. Nous ne pouvons pas le rendre positif");
+            throw overflow_error("Le numerateur a atteint la limite negative. Nous ne pouvons pas le rendre positif");
 
         numerateur = - numerateur;
         denominateur = - denominateur;
@@ -149,7 +149,7 @@ T Fraction<T>::getNumerateur() {
 }
 
 template<typename T>
-std::ostream &operator<<(std::ostream &lhs, Fraction<T> rhs) {
+std::ostream &operator<<(std::ostream &lhs, Fraction<T>& rhs) {
     return lhs << rhs.getNumerateur() << '/' << rhs.getDenominateur();
 }
 
